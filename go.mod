@@ -1,4 +1,4 @@
-module src/community-library
+module github.com/GorginZ/community-library
 
 go 1.19
 
