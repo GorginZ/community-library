@@ -30,3 +30,6 @@ func main() {
 func getBooks(c *gin.Context) {
 	c.IndentedJSON(http.StatusOK, books)
 }
+
+// https://go.dev/doc/tutorial/web-service-gin
+// tutorial
