@@ -1,4 +1,4 @@
-package books
+package routes
 
 import (
 	"net/http"
@@ -22,13 +22,16 @@ var (
 	}
 )
 
-// getAlbums responds with the list of all albums as JSON.
 func HandleBooks(c *gin.Context) {
+	Books, err := getBooks()
 	//sets content-type as application/json for us
-	if Books != nil {
-		c.JSON(http.StatusOK, Books)
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, "unable to get books")
 		return
 	}
-	c.JSON(http.StatusInternalServerError, "unable to get books")
-	return
+	c.JSON(http.StatusOK, Books)
+}
+
+func getBooks() ([]book, error) {
+	return Books, nil
 }
