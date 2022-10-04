@@ -8,7 +8,7 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-func Test_RootStatus(t *testing.T) {
+func Test_Books(t *testing.T) {
 	tests := map[string]struct {
 		wantCode int
 		request  *http.Request
