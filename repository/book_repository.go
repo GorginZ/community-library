@@ -6,16 +6,6 @@ type Book struct {
 	Author string `json:"author"`
 }
 
-// instead of db
-var (
-	Books = []Book{
-		{ISBN: "1", Title: "Brave New World", Author: "Aldous Huxley"},
-		{ISBN: "2", Title: "Das Kapital Volume One", Author: "Karl Marx"},
-		{ISBN: "3", Title: "If This Is A Man", Author: "Primo Levi"},
-		{ISBN: "3", Title: "Sexus", Author: "Henry Miller"},
-	}
-)
-
 // the book repository iface
 type BookGetter interface {
 	GetAll() ([]Book, error)
@@ -46,5 +36,5 @@ func NewFakeBookRepository() FakeBookRepository {
 }
 
 func (r FakeBookRepository) GetAll() ([]Book, error) {
-	return Books, nil
+	return r.Books, nil
 }
