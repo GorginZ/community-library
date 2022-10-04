@@ -15,20 +15,33 @@ type BookGetter interface {
 
 // the service layer
 type BookService struct {
+	//book repository can prob be private idk. Maybe that's too many layers though
 	BookRepository BookGetter
 }
 
 // new default service
-func NewBookService() *BookService {
+func NewBookService(opts ...BookServiceOption) *BookService {
 	// defaults
 	defaultRepository := BookRepository{}
 	bs := &BookService{
 		BookRepository: defaultRepository,
 	}
+	for _, opt := range opts {
+		opt(bs)
+	}
 	return bs
 }
 
 type BookRepository struct {
+}
+
+type BookServiceOption func(*BookService)
+
+// FakeBookRepository BookServiceOption for testing
+func WithFakeRepository() BookServiceOption {
+	return func(bs *BookService) {
+		bs.BookRepository = newFakeBookRepository()
+	}
 }
 
 func (r BookRepository) GetAll() ([]Book, error) {
