@@ -15,7 +15,7 @@ jobs:
       with:
         registry: ghcr.io
         username: ${{ github.repository_owner }}
-        repo-token: ${{ env.GITHUB_TOKEN }}
+        password: ${{ env.GITHUB_TOKEN }}
 
     - name: build_and_publish
       run: |
