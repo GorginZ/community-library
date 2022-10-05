@@ -1,0 +1,16 @@
+name: community-library-lint-and-test
+on: [push]
+jobs:
+  lint-test:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: lint
+      run: |
+        ./bin/lint.sh
+
+    - name: test
+      run: |
+        ./bin/test.sh

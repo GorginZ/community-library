@@ -9,7 +9,10 @@ RUN go mod download
 RUN go mod tidy
 ENV CGO_ENABLED=0
 
-RUN CGO_ENABLED=0 go build -v -o /_build/community-library 
+ARG version
+
+RUN CGO_ENABLED=0 go build -v -o /_build/community-library -ldflags "-X 'github.com/GorginZ/community-library/metadata.Version=${version}'"
+
 
 FROM scratch
 COPY --from=builder /_build/community-library /app
