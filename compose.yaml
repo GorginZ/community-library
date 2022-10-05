@@ -1,0 +1,23 @@
+---
+version: '3.4'
+services:
+  base:
+    &base
+    volumes:
+      - .:/go/src/github.com/GorginZ/community-library
+    working_dir: /go/src/github.com/GorginZ/community-library
+    build:
+      context: .
+      target: ci
+
+  go:
+    <<: *base
+    entrypoint: go
+    environment:
+      CGO_ENABLED: 0
+
+  lint:
+    <<: *base
+    entrypoint: golangci-lint
+    environment:
+      CGO_ENABLED: 0
