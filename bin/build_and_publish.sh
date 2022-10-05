@@ -11,4 +11,4 @@ tag=${1:-$version}
 
 docker build --build-arg version="$version" -t "ghcr.io/gorginz/community-library:$tag" .
 
-# docker push "ghcr.io/gorginz/georgia-hello-world:$tag"
+docker push "ghcr.io/gorginz/community-library:$tag"
