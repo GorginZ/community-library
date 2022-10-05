@@ -47,12 +47,14 @@ func Test_Books(t *testing.T) {
 	}{
 		"get-books-should-return-200-and-books": {
 			wantCode: 200,
-			context:  *GetTestGinContext(httptest.NewRequest("GET", "/books", nil)),
 		},
 	}
 	for name, tt := range tests {
 		t.Run(name, func(t *testing.T) {
-			HandleBooks(&tt.context)
+
+			ctx := GetTestGinContext(tt.request, &tt.w)
+
+			HandleBooks(ctx)
 
 			response := tt.w.Result()
 			if response.StatusCode != tt.wantCode {
@@ -62,10 +64,8 @@ func Test_Books(t *testing.T) {
 	}
 }
 
-func GetTestGinContext(r *http.Request) *gin.Context {
+func GetTestGinContext(r *http.Request, w *httptest.ResponseRecorder) *gin.Context {
 	gin.SetMode(gin.TestMode)
-
-	w := httptest.NewRecorder()
 	ctx, _ := gin.CreateTestContext(w)
 	ctx.Request = r
 
