@@ -15,7 +15,7 @@ func HandleBooks(c *gin.Context) {
 	Books, err := getBooks()
 	//sets content-type as application/json for us
 	if err != nil {
-		c.JSON(http.StatusInternalServerError, "unable to get books")
+		c.JSON(http.StatusInternalServerError, "unable to get books: "+err.Error())
 		return
 	}
 	c.JSON(http.StatusOK, Books)
