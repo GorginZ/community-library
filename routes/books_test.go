@@ -10,7 +10,7 @@ import (
 )
 
 // fake bs
-var bs *bookRepository.BookService = bookRepository.NewBookService(bookRepository.WithFakeRepository())
+var fakeBS *bookRepository.BookService = bookRepository.NewBookService(bookRepository.WithFakeRepository())
 
 // func Test_getBooks(t *testing.T) {
 // 	tests := map[string]struct {
@@ -44,15 +44,25 @@ func Test_Books(t *testing.T) {
 		request  *http.Request
 		w        httptest.ResponseRecorder
 		context  gin.Context
+		useFake  bool
 	}{
 		"get-books-should-return-200-and-books": {
 			wantCode: 200,
+			useFake:  true,
+		},
+		//use 'real' client with no implementation to see sad path
+		"get-books-should-return-500-see-sad-path": {
+			wantCode: 500,
+			useFake:  false,
 		},
 	}
 	for name, tt := range tests {
 		t.Run(name, func(t *testing.T) {
 
 			ctx := GetTestGinContext(tt.request, &tt.w)
+			if tt.useFake {
+				UseServiceWithFakeBookRepository()
+			}
 
 			HandleBooks(ctx)
 
