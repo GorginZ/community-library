@@ -24,7 +24,6 @@ func Test_Books(t *testing.T) {
 			wantCode: 200,
 			bs:       *bsWithFullFakeRepo,
 		},
-		// use 'real' client with no implementation to see sad path
 		"get-books-should-return-500-see-sad-path": {
 			wantCode: 500,
 			bs:       *bsWithEmptyRepo,
