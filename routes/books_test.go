@@ -5,35 +5,36 @@ import (
 	"net/http/httptest"
 	"testing"
 
+	repository "github.com/GorginZ/community-library/repository"
 	"github.com/gin-gonic/gin"
 )
 
-// whole shebang kind of thing, service inc, so not really just testing books.go
+var bsWithEmptyRepo = repository.NewBookService(repository.WithFakeEmptyBookRepository())
+var bsWithFullFakeRepo = repository.NewBookService(repository.WithFakeRepository())
+
 func Test_Books(t *testing.T) {
 	tests := map[string]struct {
 		wantCode int
 		request  *http.Request
 		w        httptest.ResponseRecorder
 		context  gin.Context
-		useFake  bool
+		bs       repository.BookService
 	}{
 		"get-books-should-return-200-and-books": {
 			wantCode: 200,
-			useFake:  true,
+			bs:       *bsWithFullFakeRepo,
 		},
-		//use 'real' client with no implementation to see sad path
+		// use 'real' client with no implementation to see sad path
 		"get-books-should-return-500-see-sad-path": {
 			wantCode: 500,
-			useFake:  false,
+			bs:       *bsWithEmptyRepo,
 		},
 	}
 	for name, tt := range tests {
 		t.Run(name, func(t *testing.T) {
-
 			ctx := GetTestGinContext(tt.request, &tt.w)
-			if tt.useFake {
-				UseServiceWithFakeBookRepository()
-			}
+			//set the bookservice
+			bookService = &tt.bs
 
 			HandleBooks(ctx)
 
