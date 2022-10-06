@@ -44,6 +44,13 @@ func WithFakeRepository() BookServiceOption {
 	}
 }
 
+func WithFakeEmptyBookRepository() BookServiceOption {
+	return func(bs *BookService) {
+		br := FakeBookRepository{}
+		bs.BookRepository = br
+	}
+}
+
 func (r BookRepository) GetAll() ([]Book, error) {
 	return nil, errors.New("not implemented")
 }
@@ -64,5 +71,8 @@ func newFakeBookRepository() FakeBookRepository {
 }
 
 func (r FakeBookRepository) GetAll() ([]Book, error) {
-	return r.Books, nil
+	if r.Books != nil {
+		return r.Books, nil
+	}
+	return nil, errors.New("no books")
 }
