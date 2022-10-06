@@ -17,7 +17,7 @@ var books []Book = []Book{
 }
 
 // does the fake behave how I want, can other tests rely on it
-func Test_Books(t *testing.T) {
+func Test_Fake_Book_Service(t *testing.T) {
 	tests := map[string]struct {
 		wantErr    bool
 		wantResult []Book

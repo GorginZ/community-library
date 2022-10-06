@@ -12,7 +12,7 @@ import (
 var bsWithEmptyRepo = repository.NewBookService(repository.WithFakeEmptyBookRepository())
 var bsWithFullFakeRepo = repository.NewBookService(repository.WithFakeRepository())
 
-func Test_Books(t *testing.T) {
+func Test_Books_Handler(t *testing.T) {
 	tests := map[string]struct {
 		wantCode int
 		request  *http.Request
