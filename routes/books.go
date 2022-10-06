@@ -21,6 +21,9 @@ func HandleBooks(c *gin.Context) {
 }
 
 func getBooks() ([]br.Book, error) {
-	//TODO err
-	return bookService.BookRepository.GetAll()
+	books, err := bookService.BookRepository.GetAll()
+	if err != nil {
+		return books, err
+	}
+	return books, nil
 }
