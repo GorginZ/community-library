@@ -1,5 +1,5 @@
 FROM golang:1.19.1-alpine as ci
-RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.46.2
+RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.49.0
 
 FROM golang:1.19.1-alpine as builder
 WORKDIR /go/src/github.com/GorginZ/community-library
