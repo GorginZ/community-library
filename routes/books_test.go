@@ -38,6 +38,7 @@ func Test_Books_Handler(t *testing.T) {
 			HandleBooks(ctx)
 
 			response := tt.w.Result()
+			defer response.Body.Close()
 			if response.StatusCode != tt.wantCode {
 				t.Errorf("got %v, want %v", response.Status, tt.wantCode)
 			}
