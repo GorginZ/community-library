@@ -19,16 +19,36 @@ type BookService struct {
 }
 
 // new default service
-func NewBookService() *BookService {
+func NewBookService(opts ...BookServiceOption) *BookService {
 	// defaults
 	defaultRepository := BookRepository{}
 	bs := &BookService{
 		BookRepository: defaultRepository,
 	}
+	for _, opt := range opts {
+		opt(bs)
+	}
 	return bs
 }
 
 type BookRepository struct {
+}
+
+type BookServiceOption func(*BookService)
+
+// FakeBookRepository BookServiceOption for testing will give back books
+func WithFakeRepository() BookServiceOption {
+	return func(bs *BookService) {
+		bs.BookRepository = newFakeBookRepository()
+	}
+}
+
+// FakeBookRepository will give no books
+func WithFakeEmptyBookRepository() BookServiceOption {
+	return func(bs *BookService) {
+		br := FakeBookRepository{}
+		bs.BookRepository = br
+	}
 }
 
 func (r BookRepository) GetAll() ([]Book, error) {
@@ -51,5 +71,8 @@ func newFakeBookRepository() FakeBookRepository {
 }
 
 func (r FakeBookRepository) GetAll() ([]Book, error) {
-	return r.Books, nil
+	if r.Books != nil {
+		return r.Books, nil
+	}
+	return nil, errors.New("no books")
 }

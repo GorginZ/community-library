@@ -9,13 +9,10 @@ import (
 )
 
 func main() {
-	// gin.SetMode(gin.ReleaseMode)
+	gin.SetMode(gin.ReleaseMode)
 	router := gin.Default()
 	router.GET("/books", routes.HandleBooks)
 	log.Printf("Version: %s", metadata.Version)
 
 	log.Fatal(router.Run("0.0.0.0:8080"))
 }
-
-// https://go.dev/doc/tutorial/web-service-gin
-// tutorial
