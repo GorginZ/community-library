@@ -28,3 +28,13 @@ build:
 run:
 
 ```docker run --rm -p 8080:8080 community-library:<tag>```
+
+
+## publish to GCR
+
+```bash
+#for GCR
+# docker build --build-arg version="$version" -t "asia.gcr.io/gorg-364804/community-library:$tag" .
+
+# docker push "asia.gcr.io/gorg-364804/community-library:$tag"
+```

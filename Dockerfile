@@ -1,7 +1,7 @@
-FROM golang:1.19.1-alpine as ci
+FROM --platform=linux/amd64 golang:1.19.1-alpine as ci
 RUN wget -O- -nv https://raw.githubusercontent.com/golangci/golangci-lint/master/install.sh | sh -s v1.49.0
 
-FROM golang:1.19.1-alpine as builder
+FROM --platform=linux/amd64 golang:1.19.1-alpine as builder
 WORKDIR /go/src/github.com/GorginZ/community-library
 COPY . /go/src/github.com/GorginZ/community-library
 

@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: community-library
+  namespace: default
+  labels:
+    app: community-library
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: community-library
+  template:
+    metadata:
+      labels:
+        app: community-library
+    spec:
+      containers:
+      - name: nginx
+        image: asia.gcr.io/gorg-364804/community-library:0.0.7
+        ports:
+        - containerPort: 8080
