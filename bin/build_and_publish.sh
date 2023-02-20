@@ -13,7 +13,7 @@ docker build --platform linux/amd64 --build-arg version="$version" -t "ghcr.io/g
 
 docker push "ghcr.io/gorginz/community-library:$tag"
 
-#for local GCR
+#for local GCR publish just bc I want to run it in my cluster
 # docker build --platform linux/amd64 --build-arg version="$version" -t "asia.gcr.io/gorg-364804/community-library:$tag" .
 
 # docker push "asia.gcr.io/gorg-364804/community-library:$tag"

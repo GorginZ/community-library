@@ -8,7 +8,8 @@ import (
 )
 
 var (
-	bookService *br.BookService = br.NewBookService()
+	// bookService *br.BookService = br.NewBookService()
+	bookService *br.BookService = br.NewBookService(br.WithFakeRepository())
 )
 
 func HandleBooks(c *gin.Context) {

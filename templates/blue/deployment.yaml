@@ -5,15 +5,18 @@ metadata:
   namespace: default
   labels:
     app: community-library
+    deployment: blue
 spec:
   replicas: 3
   selector:
     matchLabels:
       app: community-library
+      deployment: blue
   template:
     metadata:
       labels:
         app: community-library
+        deployment: blue
     spec:
       containers:
       - name: nginx
