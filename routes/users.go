@@ -1,7 +1,6 @@
 package routes
 
 import (
-	"errors"
 	"fmt"
 	"net/http"
 
@@ -23,11 +22,11 @@ func HandleUsers(c *gin.Context) {
 }
 
 func getUsers() ([]ur.User, error) {
-	users, err := userService.UserRepository.GetAll()
+	users, err := userService.GetAll()
 	if err != nil {
 		return users, err
 	}
-	return users, errors.New("no users")
+	return users, nil
 }
 
 func AddUser(c *gin.Context) {
